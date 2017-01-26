@@ -28,7 +28,7 @@ namespace LCL.MBK.QuickSortMeasure
                 }
             }
 
-            System.Console.Out.Write("Time: " + (after - before) + " ticks");
+            System.Console.Out.Write("Time: " + (after - before) / 10000 + " ticks");
             return 0;
         }
     }
