@@ -1,6 +1,7 @@
 #ifndef INC_LCL_MBK_ALGORITHMS_QUICKSORT_H
 #define INC_LCL_MBK_ALGORITHMS_QUICKSORT_H
 
+#include <queue>
 #include <vector>
 
 namespace lcl
@@ -46,6 +47,51 @@ namespace lcl
 			void quickSort(std::vector<T>& data)
 			{
 				quickSort(data, 0, data.size() - 1);
+			}
+
+			struct Boundary
+			{
+				Boundary(size_t s, size_t e) : start(s), end(e) {}
+
+				size_t start;
+				size_t end;
+			};
+
+			template<typename T>
+			void quickSort_nonRecursive(std::vector<T>& data, std::queue<Boundary>& boundaries)
+			{
+				while (!boundaries.empty())
+				{
+					Boundary boundary = boundaries.front();
+					boundaries.pop();
+
+					if (boundary.start >= boundary.end)
+						continue;
+
+					size_t pivot = boundary.start;
+
+					for (size_t i = boundary.start + 1; i <= boundary.end; ++i)
+					{
+						if (data[i] < data[pivot])
+						{
+							if (pivot + 1 != i)
+								swap(data, pivot, pivot + 1);
+							swap(data, pivot, i);
+							pivot += 1;
+						}
+					}
+
+					boundaries.push(Boundary(boundary.start, pivot - 1));
+					boundaries.push(Boundary(pivot + 1, boundary.end));
+				}
+			}
+
+			template<typename T>
+			void quickSort_nonRecursive(std::vector<T>& data)
+			{
+				std::queue<Boundary> boundaries;
+				boundaries.push(Boundary(0, data.size() - 1));
+				quickSort_nonRecursive(data, boundaries);
 			}
 		}
 	}

@@ -56,5 +56,25 @@ namespace lclmbkquicksorttest
 
 			Assert::AreEqual(expected, data);
 		}
+
+		TEST_METHOD(QuickSort_NonRecursive)
+		{
+			std::vector<int> data(7);
+			data[0] = 3;
+			data[1] = 5;
+			data[2] = 7;
+			data[3] = 2;
+			data[4] = 1;
+			data[5] = 6;
+			data[6] = 4;
+
+			lcl::mbk::algorithms::quickSort_nonRecursive(data);
+
+			std::vector<int> expected(7);
+			for (int i = 1; i < 8; ++i)
+				expected[i - 1] = i;
+
+			Assert::AreEqual(expected, data);
+		}
 	};
 }
