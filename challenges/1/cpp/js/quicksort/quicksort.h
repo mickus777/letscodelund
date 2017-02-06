@@ -23,11 +23,20 @@ RandomAccessIterator select_pivot(RandomAccessIterator first, RandomAccessIterat
 	static_assert(QS_THRESHOLD >= 3, "Selecting the median of 3 as pivot");
 
 	auto middle = first + std::distance(first, last) / 2;
-	std::array<decltype(first), 3> positions = { first, middle, last };
 
-	insertionsort(positions.begin(), positions.end());
+	if (*middle < *first) {
+		std::swap(*first, *middle);
+	}
 
-	return positions[1];
+	if (*last < *first) {
+		return first;
+	}
+	else if (*last < *middle) {
+		return last;
+	}
+	else {
+		return middle;
+	}
 }
 
 template<class RandomAccessIterator>
