@@ -8,7 +8,7 @@
 #include <vector>
 #include <Windows.h>
 
-int main(int arc, char** argv)
+int main(int argc, char** argv)
 {
 	std::list<int> datalist;
 	{
@@ -28,7 +28,10 @@ int main(int arc, char** argv)
 
 	long before = GetTickCount();
 
-	lcl::mbk::algorithms::quickSort(data);
+	if (argc == 2)
+		lcl::mbk::algorithms::quickSort(data);
+	else if (argc == 3 && argv[2] == "n")
+		lcl::mbk::algorithms::quickSort_nonRecursive(data);
 
 	long after = GetTickCount();
 
