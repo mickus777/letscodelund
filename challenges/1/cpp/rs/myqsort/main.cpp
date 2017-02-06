@@ -23,7 +23,7 @@ int
 
 #else
 
-int64_t
+int
 
 #endif
 
@@ -31,7 +31,7 @@ int64_t
 {
 //    {7,2,1,6,8,5,3,4}
 //    {6,5,1,3,8,4,7,9,2}
-#include "data_50000.inc"
+#include "data_500000.inc"
 };
 
 template<class T>
@@ -45,11 +45,20 @@ inline void pi_flip(T *p1, T *p2)
 template<class T>
 inline T* myqflip(T *pstart, T *pend)
 {
-    T *piv = pend, *pindex = pstart;
+    T pivot = *pend;
+    T *pindex = pstart;
+
+/*
+ * Gick ej, räknar fel.
+    if(pend - pstart > 4000)
+//        pivot = pstart[(pend - pstart) / (sizeof(T) * 2)];
+    else
+        pivot = *pend;
+*/
 
     for(; pstart <= pend ; ++pstart)
     {
-        if(*pstart <= *piv)
+        if(*pstart <= pivot)
         {
             pi_flip(pstart,pindex);
             if(pstart != pend)
