@@ -41,71 +41,42 @@ inline void pi_flip(int *p1, int *p2)
     *p2 = tmp;
 }
 
-inline int myqflip(int *pi, int start, int end)
-{   // 7,2,1,6,8,5,3,4
-    int i, piv = pi[end], index=start;
-#ifdef MY_PRINT
-    printf("%d) start: %d end: %d piv: %d\n", __LINE__, start, end, piv);
-    pi_print(pi, 8);
-#endif
+inline int* myqflip(int *pstart, int *pend)
+{
+    int *piv = pend, *pindex = pstart;
 
-    for(i=start;i <= end;++i)
+    for(; pstart <= pend ; ++pstart)
     {
-        if(pi[i] <= piv)
+        if(*pstart <= *piv)
         {
-#ifdef MY_PRINT
-            printf("%d) Index: %d pi[%d]=%d FLIP  pi[%d]=%d\n", __LINE__, index, i, pi[i], index, pi[index]);
-#endif
-            pi_flip(&pi[i],&pi[index]);
-#ifdef MY_PRINT
-            printf("%d) Index: %d pi[%d]=%d FLIP  pi[%d]=%d\n", __LINE__, index, i, pi[i], index, pi[index]);
-#endif
-            if(i!=end)
-                ++index;
+            pi_flip(pstart,pindex);
+            if(pstart != pend)
+                ++pindex;
         }
     }
-    return index;
+    return pindex;
 }
 
-static void myqsort_r(int *pi, int start, int end)
+static void myqsort_r(int *pstart, int *pend)
 {
-//    static int loop=1;
-    int index;
-    if(end<=start)
-    {
-#ifdef MY_PRINT
-        printf("%d) %d - %d  -> END\n", __LINE__, start, end);
-#endif
+    int *pindex;
+    if(pend <= pstart)
         return;
-    }
-#ifdef MY_PRINT
-    else
-        printf("%d) %d - %d\n", __LINE__, start, end);
-#endif
-//    if(++loop > 216)
-//        return;
-    index = myqflip(pi, start, end);
-#ifdef MY_PRINT
-    printf("%d) start: %d  end: %d index: %d\n", __LINE__, start, end, index);
-#endif
-    myqsort_r(pi, start, index-1);
-    myqsort_r(pi, index+1, end);
+
+    pindex = myqflip(pstart, pend);
+
+    myqsort_r(pstart, pindex-1);
+    myqsort_r(pindex+1, pend);
 }
 
 static inline void myqsort(int *pi, size_t size)
 {
-    myqsort_r(pi, 0, size-1);
+    myqsort_r(pi, &pi[size-1]);
 }
 
 int main(void)
 {
     unsigned int time, i;
-/*
-    int data[]=
-    {7,2,1,6,8,5,3,4}
-//    {6,5,1,3,8,4,7,9,2}
-    ;
-*/
 
     time = GetMilliSec();
 #ifdef TEST_QSORT
@@ -126,4 +97,3 @@ int main(void)
 
     return 0;
 }
-
