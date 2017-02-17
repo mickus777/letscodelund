@@ -10,16 +10,17 @@ namespace LCLMBKIDAStar.Problem15
     {
         public double Heuristic { get; private set; }
         public double CostToReach { get { return PreviousStates.Count; } }
-
         public List<int> Board { get; private set; }
-
         public List<State> PreviousStates { get; private set; }
+
+        private int Size;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         public State(List<int> board)
         {
             Board = new List<int>(board);
-            Heuristic = TotalManhattanDistance(this);
+            Size = (int)Math.Sqrt(board.Count);
+            Heuristic = TotalManhattanDistance(this, Size);
             PreviousStates = new List<State>();
         }
 
@@ -32,7 +33,7 @@ namespace LCLMBKIDAStar.Problem15
         ///////////////////////////////////////////////////////////////////////////////////////////
         public IEnumerable<IDAStar.State> Successors()
         {
-            int hole = FindValue(15);
+            int hole = FindValue(Size * Size - 1);
 
             List<State> states = new List<State>();
             AddMoveIfPossible(states, hole, -1, 0);
@@ -46,10 +47,13 @@ namespace LCLMBKIDAStar.Problem15
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void AddMoveIfPossible(List<State> states, int hole, int deltaX, int deltaY)
         {
-            if (hole < 4 && deltaY < 0 || hole > 11 && deltaY > 0 || (hole % 4) == 0 && deltaX < 0 || (hole % 4) == 3 && deltaX > 0)
+            if (hole < Size && deltaY < 0 || 
+                hole > (Size * (Size - 1) - 1) && deltaY > 0 || 
+                (hole % Size) == 0 && deltaX < 0 || 
+                (hole % Size) == (Size - 1) && deltaX > 0)
                 return;
 
-            int nextHole = hole + deltaX + 4 * deltaY;
+            int nextHole = hole + deltaX + Size * deltaY;
 
             State move = Move(hole, nextHole);
 
@@ -83,21 +87,22 @@ namespace LCLMBKIDAStar.Problem15
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private static int TotalManhattanDistance(State state)
+        private static int TotalManhattanDistance(State state, int size)
         {
             int total = 0;
 
-            for (int i = 0; i < 16; ++i)
-                if (state.Board[i] != 15)
-                    total += ManhattanDistance(state.Board[i], i);
+            for (int i = 0; i < size * size; ++i)
+                if (state.Board[i] != (size * size - 1))
+                    total += ManhattanDistance(state.Board[i], i, size);
 
             return total;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private static int ManhattanDistance(int source, int target)
+        private static int ManhattanDistance(int source, int target, int size)
         {
-            return Math.Abs(source / 4 - target / 4) + Math.Abs((source % 4) - (target % 4));
+            return Math.Abs(source / size - target / size) + 
+                   Math.Abs((source % size) - (target % size));
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +122,7 @@ namespace LCLMBKIDAStar.Problem15
 
             State state = (State)obj;
 
-            for (int i = 0; i < 16; ++i)
+            for (int i = 0; i < Size * Size; ++i)
                 if (state.Board[i] != Board[i])
                     return false;
 
