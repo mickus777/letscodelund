@@ -2,11 +2,15 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-*.suo
 *.db
+*.filters
 *.opendb
-x64
-bin
-obj
-ipch
+*.sdf
+*.suo
 *.user
+bin
+Debug
+ipch
+obj
+Release
+x64
