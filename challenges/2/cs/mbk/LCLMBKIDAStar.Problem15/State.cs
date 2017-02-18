@@ -31,6 +31,23 @@ namespace LCLMBKIDAStar.Problem15
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
+        public bool HasSolution()
+        {
+            int parity = 0;
+
+            for (int i = 0; i < Size * Size; ++i)
+                if (Board[i] != (Size * Size - 1))
+                    for (int j = i + 1; j < Size * Size; ++j)
+                        if (Board[j] != (Size * Size - 1))
+                            if (Board[j] < Board[i])
+                                ++parity;
+
+            parity += FindValue(Size * Size - 1) / 4 + 1;
+
+            return parity % 2 == 0;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public IEnumerable<IDAStar.State> Successors()
         {
             int hole = FindValue(Size * Size - 1);

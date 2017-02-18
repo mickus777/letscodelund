@@ -9,6 +9,30 @@ namespace LCLMBKIDAStar.Problem15.Test
     public class Problem15Test
     {
         [TestMethod]
+        public void Problem15_HasSolution()
+        {
+            State start = new State(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14 });
+
+            Assert.IsTrue(start.HasSolution());
+        }
+
+        [TestMethod]
+        public void Problem15_HasSolution_Data3()
+        {
+            State start = new State(new List<int> { 5, 2, 15, 3, 12, 4, 0, 6, 1, 9, 11, 7, 8, 13, 10, 14 });
+
+            Assert.IsTrue(start.HasSolution());
+        }
+
+        [TestMethod]
+        public void Problem15_HasSolution_Data4()
+        {
+            State start = new State(new List<int> { 14, 13, 7, 11, 9, 10, 8, 12, 1, 5, 4, 0, 2, 6, 3, 15 });
+
+            Assert.IsFalse(start.HasSolution());
+        }
+
+        [TestMethod]
         public void Problem15_Search_Data3()
         {
             State start = new State(new List<int> { 5, 2, 15, 3, 12, 4, 0, 6, 1, 9, 11, 7, 8, 13, 10, 14 });
