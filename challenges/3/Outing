@@ -1,0 +1,31 @@
+Background
+======================
+
+X persons wants to participate in a trip and are travelling on a bus with Y seats and in order to make us many 
+as possible happy the bus driver must select which persons get to go on the trip.
+
+To complicate matters further, each person will only join the trip on the condition that one other person also
+gets to go. Some persons uses this to their advantage and picks themselves as their "+1" to increase the probability
+that they will get to go. 
+
+
+Challenge
+======================
+
+Given the preferences of all persons and the amount of seats available on the bus, find the maximum number of persons 
+that willingly can join the trip.
+
+
+
+Explanation of input
+======================
+
+The first line in the input contains two integers where the first one denotes the number of persons who wants to 
+go on the trip and the second denotes the number of seats on the bus. The second line in the input contains the 
+preference of companion for each person who wants to join the trip. 
+
+In the example below, the first person will only go on the trip if the second person goes, the second only if 
+the third goes, the third only if the first goes, and so on. 
+
+5 4
+2 3 1 5 4
