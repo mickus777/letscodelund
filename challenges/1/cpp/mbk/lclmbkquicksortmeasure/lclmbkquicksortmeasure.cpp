@@ -30,8 +30,10 @@ int main(int argc, char** argv)
 
 	if (argc == 2)
 		lcl::mbk::algorithms::quickSort(data);
-	else if (argc == 3 && argv[2] == "n")
+	else if (argc == 3 && argv[2] == std::string("n"))
 		lcl::mbk::algorithms::quickSort_nonRecursive(data);
+	else if (argc == 3 && argv[2] == std::string("t"))
+		lcl::mbk::algorithms::quickSort_tailRecursive(data);
 
 	long after = GetTickCount();
 

@@ -81,8 +81,10 @@ namespace lcl
 						}
 					}
 
-					boundaries.push(Boundary(boundary.start, pivot - 1));
-					boundaries.push(Boundary(pivot + 1, boundary.end));
+					if (pivot > boundary.start)
+						boundaries.push(Boundary(boundary.start, pivot - 1));
+					if (pivot < boundary.end)
+						boundaries.push(Boundary(pivot + 1, boundary.end));
 				}
 			}
 
@@ -92,6 +94,47 @@ namespace lcl
 				std::queue<Boundary> boundaries;
 				boundaries.push(Boundary(0, data.size() - 1));
 				quickSort_nonRecursive(data, boundaries);
+			}
+
+			template<typename T>
+			void quickSort_tailRecursive(std::vector<T>& data, std::queue<Boundary>& boundaries)
+			{
+				if (boundaries.empty())
+					return;
+
+				Boundary boundary = boundaries.front();
+				boundaries.pop();
+
+				if (boundary.start < boundary.end)
+				{
+					size_t pivot = boundary.start;
+
+					for (size_t i = boundary.start + 1; i <= boundary.end; ++i)
+					{
+						if (data[i] < data[pivot])
+						{
+							if (pivot + 1 != i)
+								swap(data, pivot, pivot + 1);
+							swap(data, pivot, i);
+							pivot += 1;
+						}
+					}
+
+					if (pivot > boundary.start)
+						boundaries.push(Boundary(boundary.start, pivot - 1));
+					if (pivot < boundary.end)
+						boundaries.push(Boundary(pivot + 1, boundary.end));
+				}
+
+				quickSort_tailRecursive(data, boundaries);
+			}
+
+			template<typename T>
+			void quickSort_tailRecursive(std::vector<T>& data)
+			{
+				std::queue<Boundary> boundaries;
+				boundaries.push(Boundary(0, data.size() - 1));
+				quickSort_tailRecursive(data, boundaries);
 			}
 		}
 	}

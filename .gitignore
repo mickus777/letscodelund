@@ -2,14 +2,20 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/challenges/1/cpp/mbk/lclmbkquicksortmeasure/x64/Debug
-/challenges/1/cpp/mbk/lclmbkquicksorttest/x64/Debug
-/challenges/1/cpp/mbk/x64/Debug
-*.suo
-/challenges/1/cpp/mbk/lclmbkquicksort/x64/Debug
 *.db
+*.filters
 *.opendb
-/challenges/1/cs/mbk/LCL.MBK.QuickSortMeasure/obj/Debug
-/challenges/1/cs/mbk/LCL.MBK.QuickSortTest/obj/Debug
-/challenges/1/cs/mbk/LCLMBKQuickSort/obj/Debug
-/challenges/1/cpp/mbk/ipch/LCLMBKQUICKSORTTEST-bc3f9754
+*.sdf
+*.suo
+*.user
+bin
+Debug
+ipch
+obj
+Release
+x64
+
+# RS
+# Ignore qtcreator build dir and other files
+build-*-Desktop-Debug
+*.pri

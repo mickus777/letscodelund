@@ -22,3 +22,9 @@ empty spot).
 Did you make any interesting design decisions?
 
 How much does choice of heuristic affect the speed of the algorithm?
+
+
+More sample puzzles:
+--------------------
+
+I've added some more puzzles to the data directory. They're named after the number of moves needed to solve them. But a smaller number does not always mean easier....  /Max
