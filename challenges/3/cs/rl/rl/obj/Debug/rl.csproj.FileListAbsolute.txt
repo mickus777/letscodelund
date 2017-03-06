@@ -1,0 +1,8 @@
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\bin\Debug\rl.exe.config
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\bin\Debug\rl.exe
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\bin\Debug\rl.pdb
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\obj\Debug\rl.csprojResolveAssemblyReference.cache
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\obj\Debug\rl.Properties.Resources.resources
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\obj\Debug\rl.csproj.GenerateResource.Cache
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\obj\Debug\rl.exe
+C:\Users\TeachMeToAim\Desktop\Visual Studio\Programmering\challenges\3\cs\rl\rl\obj\Debug\rl.pdb
