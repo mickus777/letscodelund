@@ -14,3 +14,8 @@ ipch
 obj
 Release
 x64
+
+# RS
+# Ignore qtcreator build dir and other files
+build-*-Desktop-Debug
+*.pri
