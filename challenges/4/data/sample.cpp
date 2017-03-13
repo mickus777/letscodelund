@@ -19,10 +19,35 @@ int main(int argc, char *argv[])
 
     if(argc > 1)
     {
-        if('h' == argv[1][0])
+        switch (argv[1][0])
+        {
+        case 'h':
             step=600;
-        else if('r' == argv[1][0])
-            r_mod=9;
+            break;
+
+        case 'R':
+            r_mod = 900;
+            break;
+
+        case 'r':
+            r_mod = 90;
+            break;
+
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            r_mod = argv[1][0] - '0';
+            break;
+
+        default:
+            error_end("Bad argv");
+        }
     }
 
     srand(step); // Fel, men att få samma tal kan vara en fördel

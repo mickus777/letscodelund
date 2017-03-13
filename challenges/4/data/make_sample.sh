@@ -2,10 +2,15 @@
 
 g++ -std=c++14 -o sample sample.cpp
 
-./sample   > sample_org.txt
-
 ./sample r > sample_rand.txt
 
+./sample R > sample_rand_big.txt
+
 ./sample h > sample_half.txt
+
+for n in $(seq 1 9)
+do
+  ./sample $n > sample_${n}.txt
+done
 
 rm -f sample
