@@ -1,0 +1,51 @@
+<html>
+<head>
+</head>
+<body>
+	File 1: <input type="file" id="file1" /> <br/>
+	File 2: <input type="file" id="file2" /> <br/>
+	<button type="button" onclick="compare()">Compare</button>
+	<hr/>
+	Result: <span id="result"></span>
+
+
+
+	<script src="dtw.js"></script>
+
+	<script>
+		function d(a,b) { return Math.abs(a-b); };
+		
+		function compare() {
+			var seq1, seq2;
+
+			var file1 = document.getElementById("file1").files[0];
+			var file2 = document.getElementById("file2").files[0];
+			
+			var r = new FileReader();
+			r.onload = function(e) {
+				var contents = e.target.result;
+				var lines = contents.split("\n");
+				var nrs = lines.map(function(n) {return parseInt(n); });
+				seq1 = nrs.slice(0,nrs.length-1);
+
+				var r2 = new FileReader();
+				r2.onload = function(e) {
+					var contents = e.target.result;
+					var lines = contents.split("\n");
+					var nrs = lines.map(function(n) {return parseInt(n); });
+					seq2 = nrs.slice(0,nrs.length-1);
+
+					doComparison(seq1, seq2);
+				}
+				r2.readAsText(file2);
+			}
+			r.readAsText(file1);
+		}
+
+		function doComparison(seq1, seq2) {
+			var res = DTWDistance(seq1, seq2, d);
+			document.getElementById("result").innerHTML = res;
+		}
+	</script>
+</body>
+</html>
