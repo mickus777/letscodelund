@@ -25,6 +25,12 @@ namespace LCL.MBK.Algorithms.DynamicTimeWarpingExecutable
             {
                 difference = DynamicTimeWarping.Execute(ParseTextFile(args[1]), ParseTextFile(args[2]), (d1, d2) => Math.Abs(d1 - d2));
             }
+            else if (args[0].ToLower() == "-a")
+            {
+                double[] l1 = ParseTextFile(args[1]);
+                double[] l2 = ParseTextFile(args[2]);
+                difference = DynamicTimeWarping.Execute(l1, l2, (d1, d2) => Math.Abs(d1 - d2) / Math.Max(d1, d2));// / Math.Max(l1.Length, l2.Length);
+            }
             else
             {
                 Console.Error.WriteLine("Unable to parse files of type: " + args[0]);
