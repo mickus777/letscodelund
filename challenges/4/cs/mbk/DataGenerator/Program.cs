@@ -27,14 +27,23 @@ namespace DataGenerator
                 case "w":
                     GenerateTimeWarped(random);
                     break;
+				case "z":
+					GenerateZeros();
+					break;
                 default:
                     Console.Out.WriteLine("Unknown argument");
                     break;
             }
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private static void GenerateSimple(Random random)
+		///////////////////////////////////////////////////////////////////////////////////////////
+		private static void GenerateZeros()
+		{
+			OutputFile(new List<double> { 0, 0, 0 }, "zeros.dat");
+		}
+
+		///////////////////////////////////////////////////////////////////////////////////////////
+		private static void GenerateSimple(Random random)
         {
             OutputFile(GenerateBaseData(random), "simple.dat");
         }
@@ -84,8 +93,7 @@ namespace DataGenerator
             }
 
             OutputFile(baseData, "resampledSource.dat");
-            OutputFile(resampled, "resampledResult.dat");        ///////////////////////////////////////////////////////////////////////////////////////////
-
+            OutputFile(resampled, "resampledResult.dat");
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
