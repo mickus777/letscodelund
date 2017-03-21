@@ -4,12 +4,13 @@ Lets code Lund is a private group, with a public result.
 We do what we like, to become better programmers.
 
 
-Next challenge 4:
+Next challenge 5:
 
-Dynamic time warping
+L-system
 
-Dynamic time warping is an algorithm for measuring similarity between two temporal sequences.
-And has been applied to temporal sequences of video, audio, and graphics data.
+An L-system is a type of formal grammar invented by Astrid Lindenmayer to model the growth of 
+plants.
 
-https://en.wikipedia.org/wiki/Dynamic_time_warping
+See https://en.wikipedia.org/wiki/L-system for an introduction.
+
 
