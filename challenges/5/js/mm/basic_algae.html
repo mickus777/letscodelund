@@ -1,0 +1,28 @@
+<html>
+<body>
+
+<br/><br/><br/><br/>
+<center>
+	<h3>Press F12 and check the console. :-)</h3>
+</center>
+
+<script src="lsystem.js"></script>
+
+<script>
+	var rules = { 
+		'A': 'AB', 
+		'B': 'A'
+	};
+	var string = 'A';
+
+	console.log("We start with: ", string);
+
+	for (var i=0; i<10; i++) {
+		string = lsystem_step(string, rules);
+		console.log("n =",i," => ",string);
+	}
+
+</script>
+
+</body>
+</html>

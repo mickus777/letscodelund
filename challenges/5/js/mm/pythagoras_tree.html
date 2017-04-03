@@ -1,0 +1,96 @@
+<html>
+<body>
+
+
+<button onclick="next()">Draw some more</button>
+<br/>
+
+<canvas id="canvas" width="500" height="500" style="border: 1px solid black"></canvas>
+
+<script src="lsystem.js"></script>
+
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+
+function drawString(string) {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	var state = {x: 250, y: 500, angle: Math.PI/2}
+	var stack = [];
+
+	for (var i=0; i<string.length; i++) {
+		var char = string[i];
+		if (char == '0') {
+			ctx.beginPath();
+			ctx.moveTo(state.x, state.y);
+			ctx.lineWidth = 3;
+			state.y += -Math.sin(state.angle) * 4;
+			state.x += Math.cos(state.angle) * 4;
+			ctx.strokeStyle = "green";
+			ctx.lineTo(state.x, state.y);
+			ctx.stroke();
+		} else if (char == '1') {
+			ctx.beginPath();
+			ctx.lineWidth = 1;
+			ctx.moveTo(state.x, state.y);
+			state.y += -Math.sin(state.angle) * 6;
+			state.x += Math.cos(state.angle) * 6;
+			ctx.strokeStyle = "orange";
+			ctx.lineTo(state.x, state.y);
+			ctx.stroke();
+		} else if (char == '2') {
+			ctx.beginPath();
+			ctx.lineWidth = 4;
+			ctx.moveTo(state.x, state.y);
+			state.y += -Math.sin(state.angle) * 4;
+			state.x += Math.cos(state.angle) * 4;
+			ctx.strokeStyle = "orange";
+			ctx.lineTo(state.x, state.y);
+			ctx.stroke();
+		} else if (char == '3') {
+			ctx.beginPath();
+			ctx.lineWidth = 6;
+			ctx.moveTo(state.x, state.y);
+			state.y += -Math.sin(state.angle) * 3;
+			state.x += Math.cos(state.angle) * 3;
+			ctx.strokeStyle = "orange";
+			ctx.lineTo(state.x, state.y);
+			ctx.stroke();
+		} else if (char == '[') {
+			var _state = {x:state.x, y:state.y, angle: state.angle + Math.PI/4};
+			stack.push(state);
+			state = _state;
+		} else if (char == ']') {
+			state = stack.pop();
+			state.angle -= Math.PI/4;
+			// ctx.moveTo(state.x,state.y);
+		}
+	}
+
+
+}
+
+</script>
+
+<script>
+	var rules = { 
+		'1': '22', 
+		'2': '33', 
+		'3': '33', 
+		'0': '1[0]0'
+	};
+	var string = '0';
+
+	console.log("We start with: ", string);
+
+	function next() {
+		string = lsystem_step(string, rules);
+		drawString(string);
+	}
+
+</script>
+
+</body>
+</html>
