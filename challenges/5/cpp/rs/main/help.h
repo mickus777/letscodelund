@@ -76,20 +76,6 @@ constexpr unsigned int ConstCharHash(const char *pc)
 }
 
 
-/*
- *  write pic
- */
-
-//#define ADD_HEADER
-
-
-// OPT variabler
-/*
-extern int opt_stdout;
-extern int opt_print_type;
-extern int opt_save_2_dev_null;
-//*/
-
 namespace Global
 {
     extern int ReturnStatus;

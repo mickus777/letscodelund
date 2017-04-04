@@ -10,7 +10,17 @@ extern int rgb_r;
 extern int rgb_g;
 extern int rgb_b;
 
-struct ram;
+//struct ram;
+
+struct ram
+{
+    unsigned int ystar = 0;
+    unsigned int yend = 0;
+
+    unsigned int xstar = 0;
+    unsigned int xend = 0;
+    void print() const;
+};
 
 
 class BildAria
@@ -22,27 +32,49 @@ public:
     BildAria();
     ~BildAria();
 
-//    static const unsigned int s_x = 92000, s_y = 72000;  // För stor
-    static const unsigned int s_x = 90000, s_y = 24000;
-//    static const unsigned int s_x = 44000, s_y = 44000;
-//    static const unsigned int s_x = 3800, s_y = 2000;
-//    static const unsigned int s_x = 4000, s_y = 1200;
+    static const unsigned int s_x = 90000, s_y = 34000;
 
-    static auto OkPoss(auto nx, auto ny)
+    static inline auto OkPoss(auto nx, auto ny)
     {
-        if((nx < 2) || (ny < 2) || (nx > (BildAria::s_x - 4)) || (ny > (BildAria::s_y - 4)))
+        if((nx < 2) || (ny < 2) || (nx > (BildAria::s_x - 2)) || (ny > (BildAria::s_y - 2)))
             return false;
         return true;
     }
 
     int save(const char *pc) const;
 
-    inline void Set(auto x, auto y)
+    inline void ResetRam(u_int32_t x, u_int32_t y)
     {
+        FirstWrite = false;
+        m_ram.xstar = m_ram.xend = x;
+        m_ram.ystar = m_ram.yend = y;
+    }
+
+    /// Hitta ytter kanter
+    inline void SetRam(u_int32_t x, u_int32_t y)
+    {
+        if(m_ram.xstar > x)
+            m_ram.xstar = x;
+        else if(m_ram.xend <= x)
+            m_ram.xend = x+1;
+
+        if(m_ram.ystar > y)
+            m_ram.ystar = y;
+        else if(m_ram.yend <= y)
+            m_ram.yend = y+1;
+    }
+
+    inline void Set(u_int32_t x, u_int32_t y)
+    {
+        if(FirstWrite)
+            ResetRam(x,y);
+
+        SetRam(x,y);
+
         m_data[(y * s_x)+x] = 1;
     }
 
-    auto Get(auto x, auto y) const
+    inline auto Get(auto x, auto y) const
     {
        return m_data[(y * s_x)+x];
     }
@@ -56,16 +88,8 @@ public:
     std::bitset<s_x * s_y> m_data;
 #endif
 
-};
-
-struct ram
-{
-    unsigned int ystar = 0;
-    unsigned int yend = BildAria::s_y;
-
-    unsigned int xstar = 0;
-    unsigned int xend = BildAria::s_x;
-    void print() const;
+    ram m_ram;
+    bool FirstWrite = true;
 };
 
 #endif // BILDARIA_H

@@ -9,14 +9,10 @@ using namespace std;
 int rgb_r = 255;
 int rgb_g = 0;
 int rgb_b = 0;
-int NivaLoop = 2;
 
 int main(int argc, char *argv[])
 {
-/*
-    BildAria b;
-    b.save("Test.ppm");
-*/
+    int NivaLoop = 2;
     auto arg = InitArgv(argc, argv);
 
     arg=1;
@@ -25,15 +21,10 @@ int main(int argc, char *argv[])
     if(argv[arg])
         NivaLoop = atoi(argv[arg]);
 
-#ifndef SKRIPT_RUN
-    NivaLoop = 8;
-#endif
-
     koch k;
     k.make_str(NivaLoop);
     k.rita();
 
-//    cout << "Hello World!" << endl;
     return Global::ReturnStatus;
 }
 

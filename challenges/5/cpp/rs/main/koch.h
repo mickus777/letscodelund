@@ -16,6 +16,7 @@ public:
     int rita();
 
     BildAria m_aria;
+//    ram m_ram;
 };
 
 #endif // KOCH_H

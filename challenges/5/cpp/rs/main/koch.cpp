@@ -11,19 +11,19 @@ koch::~koch()
 
 void koch::make_str(int in)
 {
-    string from="",to="";
+    --in;
+    if(in < 1)
+        return;
+
+    string from,to="F";
 
     for(int loop=0;loop<in;++loop)
     {
         from=move(to);
-        if(0 == from.size())
-            to="F";
-        else
-            to="";
-//        for(unsigned int i=0 ; i < from.size() ; ++i)
+        to="";
+
         for(const auto &a : from)
         {
-//            cout << i << ")  MakeNow: " << a << "\n";
             if('F' == a)
                 to+="F+F-F-F+F";
             else
@@ -32,17 +32,18 @@ void koch::make_str(int in)
 //        cout << "To: " << to << "\n";
     }
 
-    m_str=to;
+    m_str=move(to);
 }
 
 int koch::rita()
 {
-//    unsigned int nx = BildAria::s_x/2;
     unsigned int nx = 4;
+    unsigned int ny = BildAria::s_y - 120;
     int stepx = 1, stepy=0;
-    unsigned int ny = BildAria::s_y - 12;
 
     cout << "STR: " << m_str << "\n";
+
+    m_aria.Set(nx, ny);
 
     for(const auto &a : m_str)
     {
@@ -51,14 +52,14 @@ int koch::rita()
         switch (a)
         {
         case 'F':
-            for(int i = 0 ; i < 4 ; ++i)
+            for(int i = 0 ; i < 3 ; ++i)
             {
                 if(!BildAria::OkPoss(nx,ny))
-//                if((nx < 2) || (ny < 2) || (nx > (BildAria::s_x - 4)) || (ny > (BildAria::s_y - 4)))
                     cerr << "x: " << nx << "  y: " << ny << "\n";
-                m_aria.Set(nx, ny);
+
                 nx+=stepx;
                 ny+=stepy;
+                m_aria.Set(nx, ny);
             }
             break;
 
@@ -93,8 +94,7 @@ int koch::rita()
             return -1;
             break;
         }
-
-//        cout << "a: " << a << "  stepx: " << stepx << "  stepy: " << stepy << "\n";
     }
+
     return 0;
 }

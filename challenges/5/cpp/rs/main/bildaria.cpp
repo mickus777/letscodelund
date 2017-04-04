@@ -10,7 +10,6 @@ using namespace std;
 
 BildAria::BildAria()
 {
-//    auto size = ((s_x * s_y) + 100) / 1024;
 #ifdef USE_NEW
     m_data=new unsigned char[(s_x * s_y) + 100];
     memset(m_data, 0, s_x * s_y);
@@ -20,7 +19,7 @@ BildAria::BildAria()
 BildAria::~BildAria()
 {
 #ifdef USE_NEW
-    delete m_data;
+    delete[] m_data;
 #endif
 }
 
@@ -30,6 +29,8 @@ int BildAria::save(const char *pc) const
 
     if(!fd)
         return -1;
+
+    m_ram.print();
 
     if(3==Global::P_Type)
         save_ppm_p3(fd);
@@ -43,22 +44,26 @@ int BildAria::save(const char *pc) const
 
 int BildAria::save_ppm_p1(FILE *fd) const
 {
-    ram r = GetRam();
-    r.print();
+    static const char *print_str[2][2] =
+    {
+        " 0",
+        " 1",
+        "\n0",
+        "\n1"
+    };
+/*
+    for(int i1 = 0 ; i1 < 2 ; ++i1)
+        for(int i2 = 0 ; i2 < 2 ; ++i2)
+            cout << "i1 = " << i1 << "  i2 = " << i2 << " -> \"" << print_str[i1][i2] << "\"\n";
+*/
 
-    // "$Date: " __DATE__  "  " __TIME__ " $\n"
     fprintf(fd, "P1\n" \
            "# TEXT $Date: " __DATE__  "  " __TIME__ " $ \n" \
-           "%u %u\n", r.xend-r.xstar, r.yend-r.ystar);  // s_x, s_y
-    for(unsigned int iy=r.ystar; iy < r.yend ; ++iy)
+           "%u %u", m_ram.xend-m_ram.xstar, m_ram.yend-m_ram.ystar);  // s_x, s_y
+    for(unsigned int iy=m_ram.ystar; iy < m_ram.yend ; ++iy)
     {
-        for(unsigned int ix=r.xstar ; ix < r.xend ; ++ix)
-        {
-            if(ix != r.xstar)
-                fprintf(fd, " ");
-            fprintf(fd, "%c", (0 != Get(ix,iy)) ? '1' : '0');
-        }
-        fprintf(fd, "\n");
+        for(unsigned int ix=m_ram.xstar ; ix < m_ram.xend ; ++ix)
+            fprintf(fd, print_str[(ix == m_ram.xstar)][Get(ix,iy)]);
     }
 
     return 0;
@@ -66,22 +71,23 @@ int BildAria::save_ppm_p1(FILE *fd) const
 
 int BildAria::save_ppm_p3(FILE *fd) const
 {
-    ram r = GetRam();
-    r.print();
-
-    // "$Date: " __DATE__  "  " __TIME__ " $\n"
+/*
+    ram tmp = GetRam();
+    cout << "--- --- --- --- --- tmp --- \n";
+    tmp.print();
+*/
     fprintf(fd, "P3\n" \
            "# TEXT $Date: " __DATE__  "  " __TIME__ " $ \n" \
            "%u %u\n" \
-           "255\n", r.xend-r.xstar, r.yend-r.ystar);  // s_x, s_y
-    for(unsigned int iy=r.ystar; iy < r.yend ; ++iy)
+           "255\n", m_ram.xend-m_ram.xstar, m_ram.yend-m_ram.ystar);  // s_x, s_y
+    for(unsigned int iy=m_ram.ystar; iy < m_ram.yend ; ++iy)
     {
-        for(unsigned int ix=r.xstar ; ix < r.xend ; ++ix)
+        for(unsigned int ix=m_ram.xstar ; ix < m_ram.xend ; ++ix)
         {
-            if(ix != r.xstar)
+            if(ix != m_ram.xstar)
                 fprintf(fd, " ");
             if(Get(ix,iy))
-                fprintf(fd, "%u %u %u", rgb_r, rgb_g, rgb_b);
+                fprintf(fd, "%d %d %d", rgb_r, rgb_g, rgb_b);
             else
             {
 //                fprintf(fd, "255 255 255");
