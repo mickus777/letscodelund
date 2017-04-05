@@ -4,13 +4,11 @@ Lets code Lund is a private group, with a public result.
 We do what we like, to become better programmers.
 
 
-Next challenge 5:
+Next challenge 6:
 
-L-system
+Google Code Jam
 
-An L-system is a type of formal grammar invented by Astrid Lindenmayer to model the growth of 
-plants.
+We all register and participate in the Qualification round on April 8th and 9th. Then we can 
+compare our results.
 
-See https://en.wikipedia.org/wiki/L-system for an introduction.
-
-
+See: https://code.google.com/codejam/
