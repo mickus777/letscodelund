@@ -4,11 +4,13 @@ Lets code Lund is a private group, with a public result.
 We do what we like, to become better programmers.
 
 
-Next challenge 6:
+Next challenge 8:
 
-Google Code Jam
+Public key encryption
 
-We all register and participate in the Qualification round on April 8th and 9th. Then we can 
-compare our results.
+All programmers (and everyone else?) should know the basics of encryption and safe communication.
+This task is to write code capable of encrypting and decrypting an arbitrary text, using some
+public key encryption technique. 
 
-See: https://code.google.com/codejam/
+A place to look for a simple algorith for this can be "Diffie–Hellman":
+https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
