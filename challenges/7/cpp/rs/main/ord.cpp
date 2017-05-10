@@ -9,6 +9,8 @@
 
 using namespace std;
 
+std::locale loc;
+
 /*
 void WordList::add(const std::string &s)
 {
@@ -44,6 +46,9 @@ ord::~ord()
 
 void ord::AddWord(const std::string &old, const std::string &now)
 {
+    if(old.empty() || now.empty())
+        return;
+
     for(auto &a : m_list)
     {
         if(a.m_name == old)
@@ -53,7 +58,6 @@ void ord::AddWord(const std::string &old, const std::string &now)
         }
     }
 
-//    WordList w(old, now);
     m_list.push_back(WordList(old, now));
 }
 
@@ -91,23 +95,20 @@ static int fix_str2(string &str)
 
 static vector<string> fix_str(string &str)
 {
-    std::locale loc;
+    unsigned int dot=0,x=0;
 
-    int dot=0;
-    for(int x=0 ; x<str.length() ;)
+    while(x<str.length())
     {
         str[x] = tolower(str[x],loc);
 
         if('.' == str[x])
             ++dot;
-//        if(!kasta_char(a))
-//            str[i++] = a; erase
         if(kasta_char(str[x]))
             str.erase(x,1);
         else
             ++x;
     }
-//    str[i]='\0';
+
     vector<string> v;
     if(!str.empty())
         v.push_back(str);
@@ -138,22 +139,6 @@ int ord::load(const char *filnamn)
 
             old=move(FixOrd);
         }
-
-/*        try
-        {
-            file >> val;
-            if(!file.eof())
-            {
-//                cout << i << " ) " << filnamn << "  " << val << "\n";
-                m_list.push_back(val);
-            }
-        }
-        catch(const exception &e)
-        {
-            cout << i << " >>> " << val << "\n";
-            break;
-        }
-*/
     }
 
     return 0;
@@ -163,25 +148,44 @@ string ord::getAWord(const string &sin)
 {
     for(auto &a : m_list)
     {
-        if(sin != a.m_name)
-            continue;
-//        auto &s = a.m_list[rand() % a.m_list.size()];
-//        cout << "\n" << sin << " ->  %" << a.m_list.size() << " = " << s << "\n";
-//        return s;
-        return a.m_list[rand() % a.m_list.size()];
+        if(sin == a.m_name)
+            return a.m_list[rand() % a.m_list.size()];
     }
     return sin;
 }
 
+void ord::out(const string &sthis, const string &last)
+{
+    string nu(sthis);
+
+    if("." == last)
+        nu[0] = toupper(nu[0],loc);
+    else if("." != nu)
+        cout << " ";
+
+    cout << nu;
+
+    if("." == nu)
+        cout << "\n";
+}
+
+#define ANT_ORD 100
+
 void ord::write()
 {
-    string s=".";
+    string sthis=".", last=".";
     srand(time(0));
 
-    for(int i=0;i<80;++i)
+    for(int i=0;i < ANT_ORD * 2 ;++i)
     {
-        s=getAWord(s);
-        cout << s << " ";
+        sthis = getAWord(last);
+
+        out(sthis, last);
+
+        if(i >= ANT_ORD && "." == sthis)
+            break;
+
+        last = move(sthis);
     }
     cout << "\n";
 }

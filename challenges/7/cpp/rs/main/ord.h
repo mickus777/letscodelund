@@ -42,6 +42,8 @@ public:
     int load(const char *filnamn);
 
     void write();
+    void out(const std::string &sthis, const std::string &last);
+
     std::string getAWord(const std::string &sin);
 };
 

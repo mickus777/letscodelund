@@ -24,7 +24,10 @@ int main(int argc, char *argv[])
 
     ord o;
     for(int i=1;i<argc ; ++i)
+    {
+//        cout << i << ") " << argv[i] << "\n";
         o.load(argv[i]);
+    }
     o.write();
 
     return 0;
