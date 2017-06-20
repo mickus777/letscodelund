@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -10,7 +11,8 @@ class Bruijn
 {
     unsigned int n, k;
     string alphabet;
-    vector<unsigned int> a, sequence;
+    vector<unsigned int> a;
+    list<unsigned int> sequence;
 
 protected:
     void db(unsigned int t, unsigned int p);
